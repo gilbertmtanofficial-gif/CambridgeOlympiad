@@ -1,0 +1,86 @@
+:root {
+    --vibrant-blue: #0047AB;
+    --gold: #FFD700;
+    --white: #ffffff;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    background-color: #f0f8ff;
+    color: #333;
+}
+
+header {
+    background-color: var(--vibrant-blue);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+nav li {
+    background: var(--gold);
+    color: var(--vibrant-blue);
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.3s;
+}
+
+nav li:hover {
+    transform: scale(1.1);
+    background: white;
+}
+
+.hidden { display: none; }
+
+.category-grid {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    padding: 40px;
+}
+
+.card {
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+.card img {
+    width: 200px;
+    border-radius: 15px;
+    border: 5px solid var(--vibrant-blue);
+}
+
+.card:hover {
+    transform: scale(1.2);
+    filter: brightness(1.2);
+}
+
+.winner-highlight {
+    background-color: #d4edda !important;
+    border: 2px solid #28a745;
+    font-weight: bold;
+}
+
+.class-item {
+    padding: 10px;
+    margin: 5px;
+    background: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
