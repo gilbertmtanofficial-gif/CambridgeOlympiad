@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinschool Cambridge Olympia</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Vinschool Cambridge Olympia</h1>
+        <nav>
+            <ul>
+                <li onclick="showSection('maths')">Maths</li>
+                <li onclick="showSection('sciences')">Sciences</li>
+                <li onclick="showSection('esl')">ESL/EFL</li>
+                <li>Ball Games</li>
+                <li>Skills Challenge</li>
+                <li>Cambridge Pageant</li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="content-area">
+        <!-- Default Welcome -->
+        <section id="welcome">
+            <h2>Welcome to the Olympia Challenge</h2>
+            <p>Select a category above to begin.</p>
+        </section>
+
+        <!-- Maths Section -->
+        <section id="maths" class="hidden">
+            <h2>Mathematics Department</h2>
+            <div class="category-grid">
+                <div class="card" onclick="showGrades('Sudoku')">
+                    <img src="https://via.placeholder.com/150?text=Sudoku" alt="Sudoku">
+                    <h3>Sudoku Challenge</h3>
+                </div>
+                <div class="card" onclick="showGrades('QuizTeam')">
+                    <img src="https://via.placeholder.com/150?text=Quiz+Team" alt="Quiz Team">
+                    <h3>Quiz Team</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Grade Selection (Dynamic) -->
+        <section id="grade-selection" class="hidden">
+            <h2 id="current-event-title">Select Grade</h2>
+            <div id="grade-buttons"></div>
+            <div id="class-list-container">
+                <ul id="class-list"></ul>
+                <button class="btn-winner" onclick="goToWinners()">View Winners Page</button>
+            </div>
+        </section>
+
+        <!-- Winners Page -->
+        <section id="winners-page" class="hidden">
+            <h2>🏆 Winning Teams Circle 🏆</h2>
+            <div id="winners-display"></div>
+            <button onclick="location.reload()">Reset Competition</button>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
