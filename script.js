@@ -7,53 +7,88 @@ const classesData = {
 
 let winners = [];
 
-function showSection(id) {
+function showSection(sectionId) {
+    // Hide all sections
     document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
-    document.getElementById(id).classList.remove('hidden');
-}
+    
+    // Reset Nav Highlights
+    document.querySelectorAll('nav li').forEach(li => li.classList.remove('active-nav'));
 
-function showGrades(eventName) {
-    showSection('grade-selection');
-    document.getElementById('current-event-title').innerText = eventName + " - Select Grade";
-    const btnContainer = document.getElementById('grade-buttons');
-    btnContainer.innerHTML = '';
-
-    [6, 7, 8, 9].forEach(grade => {
-        let btn = document.createElement('button');
-        btn.innerText = 'Grade ' + grade;
-        btn.onclick = () => displayClasses(grade);
-        btnContainer.appendChild(btn);
-    });
-}
-
-function displayClasses(grade) {
-    const list = document.getElementById('class-list');
-    list.innerHTML = '';
-    classesData[grade].forEach(cls => {
-        let li = document.createElement('li');
-        li.className = 'class-item';
-        li.innerHTML = `
-            <input type="checkbox" onchange="toggleWinner('${cls}', this)">
-            <span>${cls}</span>
-        `;
-        list.appendChild(li);
-    });
-}
-
-function toggleWinner(className, checkbox) {
-    if (checkbox.checked) {
-        winners.push(className);
-        checkbox.parentElement.classList.add('winner-highlight');
+    // Show selected section
+    if(sectionId === 'welcome') {
+        document.getElementById('welcome').classList.remove('hidden');
     } else {
-        winners = winners.filter(item => item !== className);
-        checkbox.parentElement.classList.remove('winner-highlight');
+        document.getElementById('event-display').classList.remove('hidden');
+        // Highlight the Nav Item
+        const navItem = document.getElementById('nav-' + sectionId);
+        if(navItem) navItem.classList.add('active-nav');
+        
+        setupSubCategories(sectionId);
     }
 }
 
+function setupSubCategories(type) {
+    const container = document.getElementById('sub-categories');
+    container.innerHTML = '';
+    
+    let options = [];
+    if(type === 'maths') options = ['Sudoku Challenge', 'Quiz Team'];
+    if(type === 'sciences') options = ['Quiz Bowl', 'SciTalk', 'Minute2WinIt'];
+    if(type === 'esl') options = ['Extemporaneous', 'Impromptu', 'Debate', 'Spelling Bee'];
+
+    options.forEach(opt => {
+        let div = document.createElement('div');
+        div.className = 'category-card';
+        div.innerHTML = `<h3>${opt}</h3>`;
+        div.onclick = () => showGrades(opt);
+        container.appendChild(div);
+    });
+}
+
+function showGrades(eventName) {
+    document.getElementById('event-display').classList.add('hidden');
+    document.getElementById('grade-selection').classList.remove('hidden');
+    document.getElementById('current-event-title').innerText = eventName;
+
+    const btnContainer = document.getElementById('grade-buttons');
+    btnContainer.innerHTML = '';
+    [6, 7, 8, 9].forEach(g => {
+        let b = document.createElement('button');
+        b.innerText = "Grade " + g;
+        b.onclick = () => renderClassCards(g);
+        btnContainer.appendChild(b);
+    });
+}
+
+function renderClassCards(grade) {
+    const container = document.getElementById('class-grid');
+    container.innerHTML = '';
+    classesData[grade].forEach(cls => {
+        let card = document.createElement('div');
+        card.className = 'class-card';
+        if(winners.includes(cls)) card.classList.add('selected');
+        card.innerHTML = `<strong>${cls}</strong>`;
+        card.onclick = () => {
+            card.classList.toggle('selected');
+            if(card.classList.contains('selected')) {
+                winners.push(cls);
+            } else {
+                winners = winners.filter(w => w !== cls);
+            }
+        };
+        container.appendChild(card);
+    });
+}
+
 function goToWinners() {
-    showSection('winners-page');
+    document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
+    document.getElementById('winners-page').classList.remove('hidden');
     const display = document.getElementById('winners-display');
-    display.innerHTML = winners.length > 0 ? 
-        winners.map(w => `<div class="card"><h3>${w}</h3></div>`).join('') :
-        "<p>No winners selected yet.</p>";
+    display.innerHTML = '';
+    winners.forEach(w => {
+        let card = document.createElement('div');
+        card.className = 'class-card selected';
+        card.innerHTML = `<strong>🏆 ${w}</strong>`;
+        display.appendChild(card);
+    });
 }
