@@ -5,59 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vinschool Cambridge Olympia</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Using FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <header>
-        <h1>Vinschool Cambridge Olympia</h1>
+        <div class="logo-area">
+            <img src="https://via.placeholder.com/80?text=Logo" alt="Vinschool Logo">
+            <h1>Vinschool Cambridge Olympia</h1>
+        </div>
         <nav>
             <ul>
-                <li onclick="showSection('maths')">Maths</li>
-                <li onclick="showSection('sciences')">Sciences</li>
-                <li onclick="showSection('esl')">ESL/EFL</li>
-                <li>Ball Games</li>
-                <li>Skills Challenge</li>
-                <li>Cambridge Pageant</li>
+                <li id="nav-maths" onclick="showSection('maths')">Maths</li>
+                <li id="nav-sciences" onclick="showSection('sciences')">Sciences</li>
+                <li id="nav-esl" onclick="showSection('esl')">ESL/EFL</li>
+                <li id="nav-ball" onclick="showSection('ball')">Ball Games</li>
+                <li id="nav-skills" onclick="showSection('skills')">Skills Challenge</li>
+                <li id="nav-pageant" onclick="showSection('pageant')">Cambridge Pageant</li>
             </ul>
         </nav>
     </header>
 
     <main id="content-area">
-        <!-- Default Welcome -->
+        <!-- Dashboard with Icons -->
         <section id="welcome">
-            <h2>Welcome to the Olympia Challenge</h2>
-            <p>Select a category above to begin.</p>
-        </section>
-
-        <!-- Maths Section -->
-        <section id="maths" class="hidden">
-            <h2>Mathematics Department</h2>
-            <div class="category-grid">
-                <div class="card" onclick="showGrades('Sudoku')">
-                    <img src="https://via.placeholder.com/150?text=Sudoku" alt="Sudoku">
-                    <h3>Sudoku Challenge</h3>
+            <h2 class="main-title">Select Your Department</h2>
+            <div class="icon-grid">
+                <div class="category-card" onclick="showSection('maths')">
+                    <i class="fas fa-calculator"></i>
+                    <h3>Maths</h3>
                 </div>
-                <div class="card" onclick="showGrades('QuizTeam')">
-                    <img src="https://via.placeholder.com/150?text=Quiz+Team" alt="Quiz Team">
-                    <h3>Quiz Team</h3>
+                <div class="category-card" onclick="showSection('sciences')">
+                    <i class="fas fa-flask"></i>
+                    <h3>Sciences</h3>
+                </div>
+                <div class="category-card" onclick="showSection('esl')">
+                    <i class="fas fa-book-open"></i>
+                    <h3>ESL / EFL</h3>
+                </div>
+                <div class="category-card" onclick="showSection('ball')">
+                    <i class="fas fa-volleyball-ball"></i>
+                    <h3>Ball Games</h3>
+                </div>
+                <div class="category-card" onclick="showSection('skills')">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Skills Challenge</h3>
+                </div>
+                <div class="category-card" onclick="showSection('pageant')">
+                    <i class="fas fa-crown"></i>
+                    <h3>Pageant</h3>
                 </div>
             </div>
         </section>
 
-        <!-- Grade Selection (Dynamic) -->
+        <!-- Dynamic Content (Controlled by JS) -->
+        <section id="event-display" class="hidden">
+            <button class="back-btn" onclick="showSection('welcome')">← Back to Menu</button>
+            <div id="sub-categories" class="category-grid"></div>
+        </section>
+
+        <!-- Grade Selection and Class Cards -->
         <section id="grade-selection" class="hidden">
             <h2 id="current-event-title">Select Grade</h2>
-            <div id="grade-buttons"></div>
-            <div id="class-list-container">
-                <ul id="class-list"></ul>
-                <button class="btn-winner" onclick="goToWinners()">View Winners Page</button>
-            </div>
+            <div id="grade-buttons" class="grade-nav"></div>
+            <div id="class-grid" class="class-card-container"></div>
+            <button class="btn-winner" onclick="goToWinners()">View Winners List →</button>
         </section>
 
         <!-- Winners Page -->
         <section id="winners-page" class="hidden">
-            <h2>🏆 Winning Teams Circle 🏆</h2>
-            <div id="winners-display"></div>
-            <button onclick="location.reload()">Reset Competition</button>
+            <h2>🏆 The Champions Circle 🏆</h2>
+            <div id="winners-display" class="class-card-container"></div>
+            <button class="back-btn" onclick="location.reload()">Start New Session</button>
         </section>
     </main>
 
